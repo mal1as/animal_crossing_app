@@ -1,0 +1,80 @@
+<div class="container-lg text-center">
+    <div class="h4 form-header">Add report</div>
+    <div class="form border border-light rounded p-3">
+        <form class="data-form">
+            <div class="m-1">
+                <div class="m-2">Select reserve where animal</div>
+                <div class="m-1 row">
+                    <div class="col">
+                        <p-listbox [options]="reserves" [(ngModel)]="selectedReserve" optionLabel="name"
+                                   [listStyle]="{'max-height':'150px'}">
+                            <ng-template let-reserve pTemplate="item">
+                                <div class="reserve-item">
+                                    <div>{{reserve.name}}, {{reserve.climate.name}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                    <div class="col">
+                        <button pButton label="Select reserve"
+                                [disabled]="selectedReserve === undefined || selectedReserve === null"
+                                (click)="onSelectReserveClick()"
+                                class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-2">Fill report</div>
+                <div class="m-1 row">
+                    <div class="col">
+                        <div>Animal to report</div>
+                    </div>
+                    <div class="col">
+                        <p-listbox [options]="animals" [(ngModel)]="selectedAnimal" optionLabel="name"
+                                   [listStyle]="{'max-height':'150px'}">
+                            <ng-template let-animal pTemplate="item">
+                                <div class="animal-item">
+                                    <div>{{animal.name}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+                <div class="m-1 row">
+                    <div class="col">
+                        <div>Health rate</div>
+                    </div>
+                    <div class="col">
+                        <p-inputNumber [(ngModel)]="healthRate" [showButtons]="true" inputId="minmax" mode="decimal" min="1" max="5"></p-inputNumber>
+                        <div *ngIf="isInvalidRate()">
+                            <div class="text-danger m-2">Health rate from 1 to 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-1 row">
+                    <div class="col">
+                        <div>Comment</div>
+                    </div>
+                    <div class="col">
+                        <input class="w-100" type="text" pInputText [(ngModel)]="comment">
+                    </div>
+                </div>
+                <div class="m-1 row">
+                    <div class="col">
+                        <div>Report date</div>
+                    </div>
+                    <div class="col">
+                        <p-calendar inputId="basic" [(ngModel)]="reportDate"></p-calendar>
+                    </div>
+                </div>
+                <div class="m-1">
+                    <button pButton label="Save report"
+                            [disabled]="selectedReserve === undefined || selectedReserve === null || selectedAnimal === undefined || selectedAnimal === null || reportDate === null"
+                            (click)="onSaveReportClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

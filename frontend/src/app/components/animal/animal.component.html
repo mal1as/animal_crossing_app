@@ -1,0 +1,29 @@
+<div class="container-lg text-center">
+    <div class="h4 form-header">Animals</div>
+    <div class="form border border-light rounded p-3">
+        <form class="data-form">
+            <div class="m-1">
+                <p-table [value]="animals" responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Animal class</th>
+                            <th>Climate</th>
+                            <th>Characteristics</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-animal>
+                        <tr>
+                            <td>{{animal.animal.id}}</td>
+                            <td>{{animal.animal.name}}</td>
+                            <td>{{animal.animal.animalClass.name}}</td>
+                            <td>{{animal.animal.climate?.name}}</td>
+                            <td>{{getCharacteristicsString(animal)}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </form>
+    </div>
+</div>

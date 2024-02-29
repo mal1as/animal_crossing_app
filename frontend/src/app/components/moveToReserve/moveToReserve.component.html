@@ -1,0 +1,115 @@
+<div class="container-lg text-center">
+    <div class="h4 form-header">Reserve actions</div>
+    <div class="form border border-light rounded p-3">
+        <form class="data-form">
+            <div class="m-1">
+                <div class="row m-1">
+                    <div class="col">Select animal for more info</div>
+                    <div class="col">
+                        <p-listbox [options]="allAnimals" [(ngModel)]="selectedAnimal" optionLabel="name"
+                                   [listStyle]="{'max-height':'150px'}" [checkbox]="true" (click)="onClickList()">
+                            <ng-template let-animal pTemplate="item">
+                                <div class="animal-item">
+                                    <div>{{animal.name}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                    <div class="col">
+                        <button pButton label="Select animal"
+                                (click)="onSelectAnimalClick()" [disabled]="selectedAnimal === undefined || selectedAnimal === null"
+                                class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-2">Some reserve recommendations based on animal climate</div>
+                <div class="m-1 row">
+                    <div class="col">
+                        <div class="m-1">Reserves by climate name</div>
+                        <p-listbox [options]="reservesByName" optionLabel="name" [listStyle]="{'max-height':'150px'}" [readonly]="true">
+                            <ng-template let-reserve pTemplate="item">
+                                <div class="reserve-item">
+                                    <div>{{reserve.reserveName}}, {{reserve.reserveClimateName}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                    <div class="col">
+                        <div class="m-1">Reserves by climate temp</div>
+                        <p-listbox [options]="reservesByTemp" optionLabel="name" [listStyle]="{'max-height':'150px'}" [readonly]="true">
+                            <ng-template let-reserve pTemplate="item">
+                                <div class="reserve-item">
+                                    <div>{{reserve.reserveName}}, {{reserve.reserveClimateName}}, temp diff = {{reserve.totalTempDiff}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-1 row">
+                    <div class="col">Save climate for animal by report rates</div>
+                    <div class="col">
+                        <p-listbox [options]="climatesByReports" [(ngModel)]="selectedClimate" optionLabel="name" [listStyle]="{'max-height':'150px'}">
+                            <ng-template let-climate pTemplate="item">
+                                <div class="climate-item">
+                                    <div>{{climate.climateName}}, avg rate = {{climate.avgHealthRate}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+                <div class="m-1">
+                    <button pButton label="Save animal climate"
+                            (click)="onSaveClimateClick()" [disabled]="selectedClimate === undefined || selectedAnimal === undefined"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-1 row">
+                    <div class="col">Select reserve</div>
+                    <div class="col">
+                        <p-listbox [options]="availableReserves" [(ngModel)]="selectedReserve" optionLabel="name" [listStyle]="{'max-height':'150px'}">
+                            <ng-template let-reserve pTemplate="item">
+                                <div class="reserve-item">
+                                    <div>{{reserve.name}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+                <div class="m-1">
+                    <button pButton label="Move animal to reserve"
+                            (click)="onMoveToReserveClick()" [disabled]="selectedReserve === undefined || selectedAnimal === undefined || !isReadyToMove"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                    <div *ngIf="!isReadyToMove">
+                        <div class="text-danger m-2">Reserve is overload, add workers</div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-1 row">
+                    <div class="col">
+                        <p-listbox [options]="availableWorkers" [(ngModel)]="selectedWorker" optionLabel="name" [listStyle]="{'max-height':'150px'}">
+                            <ng-template let-worker pTemplate="item">
+                                <div class="worker-item">
+                                    <div>{{worker.username}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                    <div class="col">
+                        <button pButton label="Move worker to reserve"
+                                (click)="onMoveWorkerToReserveClick()" [disabled]="selectedReserve === undefined || selectedWorker === undefined"
+                                class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

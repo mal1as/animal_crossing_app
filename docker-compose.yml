@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: studs
+    ports:
+      - "5432:5432"
+    networks:
+      - test-network
+
+  bd-coursework:
+    build: .
+    image: bd-coursework:latest
+    container_name: bd-coursework
+    ports:
+      - "8080-8080"
+    depends_on:
+      - postgres
+    networks:
+      - test-network
+
+networks:
+  test-network:

@@ -1,0 +1,57 @@
+<p-sidebar [(visible)]="isVisibleSideBar" position="left" styleClass="p-sidebar-sm">
+    <div class="text-center mx-5 my-3">
+        <i class="pi pi-user" style="font-size: 2em"></i>
+        <div class="m-2">Current user:</div>
+        <div class="m-2">{{currentUser.username}}</div>
+        <button pButton (click)="onLogOutClick()" label="Log out"></button>
+    </div>
+</p-sidebar>
+<div class="text-left m-2" style="float: left">
+    <button pButton (click)="isVisibleSideBar = true" icon="pi pi-user"></button>
+</div>
+<div class="container-lg text-center p-4">
+    <div class="h4 form-header">Home page</div>
+    <div class="form border border-light rounded p-2 row">
+        <div class="panel-group col w-100">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button pButton label="Experiments" [disabled]="!isAdmin() && !isScientist()" (click)="onExperimentClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button pButton label="Animals" (click)="onAnimalClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button pButton label="Move to reserve" [disabled]="!isAdmin() && !isManager() && !isScientist()" (click)="onMoveToReserveClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button pButton label="Add report" [disabled]="!isAdmin() && !isManager()" (click)="onAddReportClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button pButton label="Report history" (click)="onReportHistoryClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button pButton label="Experiment history" (click)="onExperimentHistoryClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <img src="/assets/logo.jpg" alt="logo" width="480">
+        </div>
+    </div>
+</div>

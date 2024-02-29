@@ -1,0 +1,81 @@
+<div class="container-lg text-center">
+    <div class="h4 form-header">Create experiment</div>
+    <div class="form border border-light rounded p-3">
+        <form class="data-form">
+            <div class="m-1">
+                <div class="m-2">Step 1</div>
+                <button pButton label="Start" [disabled]="currentStep !== 0" (click)="onStartClick()"
+                        class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-2">Step 2</div>
+                <p-listbox [options]="animals" [(ngModel)]="selectedAnimals" [disabled]="isDisableAnimalSelect()" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'max-height':'250px'}">
+                    <ng-template let-animal pTemplate="item">
+                        <div class="animal-item">
+                            <div>{{animal.name}}</div>
+                        </div>
+                    </ng-template>
+                </p-listbox>
+                <button pButton label="Select animals" [disabled]="currentStep !== 1 || !isSelectedAnimalsCorrect()" (click)="onSelectAnimalsClick()"
+                        class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                <div class="p-message-error text-danger h5 mt-2" *ngIf="!isSelectedAnimalsCorrect()">
+                    <span>From 2 to 5 animals, same animal class</span>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-2">Step 3</div>
+                <p-listbox [options]="availableChars" [(ngModel)]="selectedChars" [disabled]="isDisableCharsSelect()" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'max-height':'250px'}">
+                    <ng-template let-characteristic pTemplate="item">
+                        <div class="characteristic-item">
+                            <div>{{characteristic.characteristicName}}</div>
+                        </div>
+                    </ng-template>
+                </p-listbox>
+                <button pButton label="Select characteristics" [disabled]="currentStep !== 2 || !isSelectedCharsCorrect()" (click)="onSelectCharsClick()"
+                        class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                <div class="p-message-error text-danger h5 mt-2" *ngIf="!isSelectedCharsCorrect()">
+                    <span>Selected chars are conflicted</span>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-2">Step 4</div>
+                <button pButton label="Execute" [disabled]="currentStep !== 3" (click)="onExecuteClick()"
+                        class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+            </div>
+            <hr>
+            <div class="m-1">
+                <div class="m-2">Step 5</div>
+                <div class="m-4 p-fluid" *ngIf="isSuccessExperiment()">
+                    <div class="text-success m-2">Experiment success, congratulations!</div>
+                    <span class="p-float-label m-2">
+                    <input id="animalName" type="text" pInputText name="animalName" maxlength="50" [(ngModel)]="createdAnimal.name">
+                    <label for="animalName">Animal name</label>
+                    </span>
+                    <button pButton label="Save animal name" [disabled]="currentStep !== 4 || experimentStatus.name !== 'SUCCESS' || isNewAnimalNameSaved" (click)="onSaveAnimalNameClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+                <div *ngIf="isMutationExperiment()">
+                    <div class="text-warning m-2">Ooops, mutation happened</div>
+                    <div class="m-2">New animal name: {{createdAnimal.name}}</div>
+                </div>
+                <div *ngIf="isFailedExperiment()">
+                    <div class="text-danger m-2">Experiment failed...</div>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1 row">
+                <div class="col">
+                    <button pButton label="To home" (click)="onToHomeClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+                <div class="col">
+                    <button pButton label="To animals" (click)="onToAnimalsClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

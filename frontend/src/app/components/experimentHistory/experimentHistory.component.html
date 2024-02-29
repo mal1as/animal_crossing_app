@@ -1,0 +1,89 @@
+<div class="container-lg text-center">
+    <div class="h4 form-header">Experiment history</div>
+    <div class="form border border-light rounded p-3">
+        <form class="data-form">
+            <div class="m-1">
+                <div class="m-1 row">
+                    <div class="col">
+                        <div class="m-1">Animals</div>
+                        <p-listbox [options]="animals" [(ngModel)]="selectedAnimals" [metaKeySelection]="false" [checkbox]="true"
+                                   [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'max-height':'150px'}">
+                            <ng-template let-animal pTemplate="item">
+                                <div class="animal-item">
+                                    <div>{{animal.name}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                    <div class="col">
+                        <div class="m-1">Experimenter</div>
+                        <p-listbox [options]="experimenters" [(ngModel)]="selectedExperimenter" optionLabel="name"
+                                   [listStyle]="{'max-height':'220px'}">
+                            <ng-template let-experimenter pTemplate="item">
+                                <div class="experimenter-item">
+                                    <div>{{experimenter.username}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                    <div class="col">
+                        <div class="m-1">Status</div>
+                        <p-listbox [options]="statuses" [(ngModel)]="selectedStatus" optionLabel="name"
+                                   [listStyle]="{'max-height':'220px'}">
+                            <ng-template let-status pTemplate="item">
+                                <div class="status-item">
+                                    <div>{{status.name}}</div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
+                </div>
+                <div class="m-1 row">
+                    <div class="col">
+                        <div class="m-1">Start date</div>
+                        <p-calendar inputId="basic" [(ngModel)]="startDate"></p-calendar>
+                    </div>
+                    <div class="col">
+                        <div class="m-1">End date</div>
+                        <p-calendar inputId="basic" [(ngModel)]="endDate"></p-calendar>
+                    </div>
+                </div>
+                <div class="m-1">
+                    <div class="m-2 row">
+                        <div class="m-1 col">
+                            <button pButton label="Search experiments" (click)="onSearchClick()"
+                            class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                        </div>
+                        <div class="m-1 col">
+                            <button pButton label="Unselect params" (click)="onUnselectClick()"
+                                    class="p-button-help font-weight-bold text-dark m-2 w-50"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="m-1">
+                <p-table [value]="experiments" responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Id</th>
+                            <th>Status</th>
+                            <th>Start date</th>
+                            <th>Experimenter</th>
+                            <th>Created animal</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-experiment>
+                        <tr>
+                            <td>{{experiment.id}}</td>
+                            <td>{{experiment.status?.name}}</td>
+                            <td>{{experiment.startDate}}</td>
+                            <td>{{experiment.experimenter?.username}}</td>
+                            <td>{{experiment.createdAnimal?.name}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </form>
+    </div>
+</div>
